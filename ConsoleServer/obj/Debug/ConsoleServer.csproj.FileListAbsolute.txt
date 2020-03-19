@@ -1,0 +1,6 @@
+C:\Users\Vlad\source\repos\ConsoleServer\ConsoleServer\bin\Debug\ConsoleServer.exe.config
+C:\Users\Vlad\source\repos\ConsoleServer\ConsoleServer\bin\Debug\ConsoleServer.exe
+C:\Users\Vlad\source\repos\ConsoleServer\ConsoleServer\bin\Debug\ConsoleServer.pdb
+C:\Users\Vlad\source\repos\ConsoleServer\ConsoleServer\obj\Debug\ConsoleServer.csprojAssemblyReference.cache
+C:\Users\Vlad\source\repos\ConsoleServer\ConsoleServer\obj\Debug\ConsoleServer.exe
+C:\Users\Vlad\source\repos\ConsoleServer\ConsoleServer\obj\Debug\ConsoleServer.pdb
