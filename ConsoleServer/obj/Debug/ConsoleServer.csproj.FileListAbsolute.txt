@@ -4,3 +4,7 @@ C:\Users\Vlad\source\repos\ConsoleServer\ConsoleServer\bin\Debug\ConsoleServer.p
 C:\Users\Vlad\source\repos\ConsoleServer\ConsoleServer\obj\Debug\ConsoleServer.csprojAssemblyReference.cache
 C:\Users\Vlad\source\repos\ConsoleServer\ConsoleServer\obj\Debug\ConsoleServer.exe
 C:\Users\Vlad\source\repos\ConsoleServer\ConsoleServer\obj\Debug\ConsoleServer.pdb
+C:\Users\Vlad\source\repos\ConsoleServer\ConsoleServer\bin\Debug\WpfClient.exe
+C:\Users\Vlad\source\repos\ConsoleServer\ConsoleServer\bin\Debug\WpfClient.pdb
+C:\Users\Vlad\source\repos\ConsoleServer\ConsoleServer\bin\Debug\WpfClient.exe.config
+C:\Users\Vlad\source\repos\ConsoleServer\ConsoleServer\obj\Debug\ConsoleServer.csproj.CopyComplete

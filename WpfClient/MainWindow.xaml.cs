@@ -14,6 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Net;
 using System.Net.Sockets;
+using Microsoft.Win32;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace WpfClient
 {
@@ -39,7 +42,7 @@ namespace WpfClient
                 mySocket.Connect(iPEndPoint);
                 if(mySocket.Connected)
                 {
-                    string str = "Hello Kozak";
+                    string str = "Hello Kozak2";
                     //Відправляємо серверу повідомлення у байтах.
                     mySocket.Send(Encoding.ASCII.GetBytes(str));
 
@@ -67,10 +70,58 @@ namespace WpfClient
             }
             finally
             {
-                mySocket.Shutdown(SocketShutdown.Send);
+                mySocket.Shutdown(SocketShutdown.Both);
                 mySocket.Close();
             }
 
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog dlg = new OpenFileDialog();
+            dlg.ShowDialog();
+
+            System.Drawing.Image img = System.Drawing.Image.FromFile(dlg.FileName);
+
+
+            Socket mySocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            //ІП і порт сервера
+            IPAddress iPAddress = IPAddress.Parse("127.0.0.1");
+            IPEndPoint iPEndPoint = new IPEndPoint(iPAddress, 1098);
+
+            ImageName imgName = new ImageName()
+            {
+                Image = img,
+                Name = System.IO.Path.GetFileName(dlg.FileName)
+            };
+
+            byte[] imageData;
+            BinaryFormatter bf = new BinaryFormatter();
+            using (MemoryStream ms = new MemoryStream())
+            {
+                bf.Serialize(ms, imgName);
+                imageData =  ms.ToArray();
+            }
+
+            try
+            {
+                //Підключення до сервера
+                mySocket.Connect(iPEndPoint);
+                if (mySocket.Connected)
+                {
+                    //Відправляємо серверу повідомлення у байтах.
+                    mySocket.Send(imageData);
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                mySocket.Shutdown(SocketShutdown.Both);
+                mySocket.Close();
+            }
         }
     }
 }

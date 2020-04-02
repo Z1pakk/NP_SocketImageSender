@@ -5,6 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Net;
 using System.Net.Sockets;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
+using WpfClient;
 
 namespace ConsoleServer
 {
@@ -21,7 +24,7 @@ namespace ConsoleServer
             // Вказуємо що сервер працює на цій кінцевій точці
             s.Bind(iPEndPoint);
             //Вказуємо серверу що він має слухати і його черга на повідомлення становить 10
-            s.Listen(10);
+            s.Listen(-1);
 
             try
             {
@@ -30,7 +33,34 @@ namespace ConsoleServer
                     // Підключення з клієнтом
                     Socket client = s.Accept();
                     Console.WriteLine(client.RemoteEndPoint.ToString());
-                    client.Send(Encoding.UTF8.GetBytes($"Hello from server {DateTime.Now}"));
+                    //тимчасова змінна для зберігання даних, які прийшли з сервера
+                    byte[] buffer = new byte[10000000];
+                    //скільки байті залишилось зчитати
+                    int length;
+
+                    do
+                    {
+                        // Hello World
+                        // Hello - 1kb
+                        // World - 1kb
+
+                        //Зчитування даних які залишилось отримать з сервера
+                        length = client.Receive(buffer);
+
+                    } while (client.Available > 0);
+
+                    ImageName imgName = new ImageName();
+
+                    using (MemoryStream memStream = new MemoryStream(buffer))
+                    {
+                        BinaryFormatter binForm = new BinaryFormatter();
+                        imgName = (ImageName)binForm.Deserialize(memStream);
+                    }
+
+                    imgName.Image.Save(imgName.Name);
+                    
+
+                    //client.Send(Encoding.UTF8.GetBytes($"Hello from server {DateTime.Now}"));
                     //Закрить підключення з клієнтом
                     client.Shutdown(SocketShutdown.Both);
                     client.Close();
